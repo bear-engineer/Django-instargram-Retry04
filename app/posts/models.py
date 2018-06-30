@@ -10,7 +10,7 @@ class Post(models.Model):
         null=True,
         blank=True,
     )
-    photo = models.ImageField(upload_to='posts_photo', blank=True)
+    photo = models.ImageField(upload_to='posts_photo',blank=True)
     content = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

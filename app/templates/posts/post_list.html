@@ -5,13 +5,17 @@
 
         <div>
             <div>
-                <img src="{{ post.author.profile_image.url }}" alt="">
+                {% if post.author.profile_image %}
+                    <img src="{{ post.author.profile_image.url }}" alt="">
+                {% endif %}
             </div>
             <h3>{{ post.author }}</h3>
         </div>
 
         <div>
-            <img src="{{ post.photo.url }}" alt="">
+            {% if post.photo %}
+                <img src="{{ post.photo.url }}" alt="">
+            {% endif %}
         </div>
 
         <div>
