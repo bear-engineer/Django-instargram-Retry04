@@ -34,7 +34,7 @@ SECRET_KEY = 'zdns8h-w0$&=rf+84r16kivifcc%-25as_w=d)e_@#!^7--g01'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+AUTH_USER_MODEL = 'members.User'
 
 # Application definition
 

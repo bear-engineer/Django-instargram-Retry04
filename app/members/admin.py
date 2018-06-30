@@ -19,7 +19,6 @@ class UserAdmin(BaseUserAdmin):
                 'email',
                 'profile_image',
                 'site',
-                'created_at',
             ),
         }),
         ('권한',{
