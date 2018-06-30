@@ -19,6 +19,7 @@ from django.urls import path
 from . import settings
 
 urlpatterns = [
+    # admin page URL
     path('admin/', admin.site.urls),
 ] + static(
     prefix=settings.MEDIA_URL,
