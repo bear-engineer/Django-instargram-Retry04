@@ -11,8 +11,14 @@
 
 <header>
     <ul>
-        <li><a href="#">SignIn</a></li>
-        <li><a href="#">SignUp</a></li>
+        <li><a href="{% url 'members:sign-in' %}">SignIn</a></li>
+        <li><a href="{% url 'members:sign-up' %}">SignUp</a></li>
+        <li>
+            <form action="{% url 'members:sign-out' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit">SignOut</button>
+            </form>
+        </li>
         <li><a href="{% url 'posts:post-create' %}">posting</a></li>
     </ul>
     {{ user }}
