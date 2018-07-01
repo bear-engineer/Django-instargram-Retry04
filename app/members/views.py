@@ -37,3 +37,6 @@ def sign_out(request):
         logout(request)
         return redirect('index')
 
+def follow_toggle(request):
+    if request.method == 'POST':
+        request.user.username.follow()

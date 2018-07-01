@@ -1,44 +1,76 @@
 {% extends 'base.html' %}
 {% block content %}
-    {% for post in posts %}
-    <article>
 
-        <div>
-            <div>
-                {% if post.author.profile_image %}
-                    <img src="{{ post.author.profile_image.url }}" alt="">
-                {% endif %}
-            </div>
-            <h3>{{ post.author }}</h3>
-        </div>
+<div class="left">
+  {% for post in posts %}
+  <article class="post-wrap">
 
-        <div>
-            {% if post.photo %}
-                <img src="{{ post.photo.url }}" alt="">
-            {% endif %}
-        </div>
+    <div class="author">
+      <div class="author-image">
+        {% if post.author.profile_image %}
+        <img src="{{ post.author.profile_image.url }}" alt=""> {% endif %}
+      </div>
+      <div class="author-username">
+        <h3>{{ post.author }}</h3>
+        <p>{{ post.author.last_name }}</p>
+      </div>
+    </div>
 
-        <div>
-            <time>{{ post.created_at }}</time>
-            <p>{{ post.content }}</p>
-            <form action="{% url 'posts:post-delete' post.pk %}" method="POST">
-                {% csrf_token %}
-                <button type="submit">Delete</button>
-            </form>
-        </div>
+    <div class="image">
+      {% if post.photo %}
+      <img src="{{ post.photo.url }}" alt=""> {% endif %}
+    </div>
 
-        <div>
-            <div>
-                {% for comment in post.comments.all %}
-                <p>{{ comment }}</p>
-                {% endfor %}
-            </div>
-            <form action="{% url 'posts:comment' post_pk=post.pk %}" method="POST">
-                {% csrf_token %}
-                <input type="text" name="content">
-            </form>
-        </div>
+    <div class="content">
 
-    </article>
-    {% endfor %}
+      <div class="content-comment">
+        <form action="{% url 'posts:comment' post_pk=post.pk %}" method="POST">
+          {% csrf_token %}
+          <input type="text" name="content" placeholder="댓글을 입력해주세요...">
+        </form>
+      </div>
+
+      <div class="content-text">
+        <p>{{ post.content }}</p>
+      </div>
+
+      <div class="content-comment-list">
+        {% for comment in post.comments.all %}
+        <div><span class="comment-id">{{ comment.author }}</span><span class="comment-p">{{ comment }}</span></div>
+        {% endfor %} {% if post.author == user %}
+        <form action="{% url 'posts:post-delete' post.pk %}" method="POST">
+          {% csrf_token %}
+          <button type="submit">Delete</button>
+        </form>
+        {% endif %}
+
+
+        <time>{{ post.created_at }}</time>
+      </div>
+
+    </div>
+  </article>
+  {% endfor %}
+</div>
+
+<div class="right">
+  <article class="author-list">
+    <div class="my-author">
+
+      {% if user.is_authenticated %}
+      <div class="author-image">
+        {% if user.profile_image %}
+        <img src="{{ user.profile_image.url }}" alt=""> {% endif %}
+      </div>
+      <div class="author-username">
+        <h3>{{ user }}</h3>
+        <p>{{ user.last_name }}</p>
+      </div>
+      {% endif %}
+
+    </div>
+    <div>
+    </div>
+  </article>
+</div>
 {% endblock %}

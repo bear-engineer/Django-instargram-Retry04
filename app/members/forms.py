@@ -44,7 +44,7 @@ class SignupForm(forms.Form):
         password2 = self.cleaned_data['password2']
 
         if password != password2:
-            self.add_errors('password2', '비밀번호가 일치하지 않습니다.')
+            self.add_error('password2', '비밀번호가 일치하지 않습니다.')
         else:
             return self.cleaned_data
 
