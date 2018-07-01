@@ -35,7 +35,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 AUTH_USER_MODEL = 'members.User'
-
+LOGIN_URL = 'members:sign-in'
 # Application definition
 
 INSTALLED_APPS = [

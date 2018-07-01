@@ -21,6 +21,22 @@
         <div>
             <time>{{ post.created_at }}</time>
             <p>{{ post.content }}</p>
+            <form action="{% url 'posts:post-delete' post.pk %}" method="POST">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+
+        <div>
+            <div>
+                {% for comment in post.comments.all %}
+                <p>{{ comment }}</p>
+                {% endfor %}
+            </div>
+            <form action="{% url 'posts:comment' post_pk=post.pk %}" method="POST">
+                {% csrf_token %}
+                <input type="text" name="content">
+            </form>
         </div>
 
     </article>
