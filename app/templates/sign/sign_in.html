@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+    <article class="form-wrap">
     <form action="" method="POST">
     {% csrf_token %}
         <div>
@@ -10,7 +11,11 @@
             <label for="password">Password</label>
             <input type="password" id="password" name="password">
         </div>
+        <div class="button-wrap">
         <button type="submit">Sign in</button>
+        <button><a href="https://www.facebook.com/v3.0/dialog/oauth?client_id=2495657473793268&redirect_uri=http://localhost:8000/members/facebook-login/">facebook Login</a></button>
+
+        </div>
     </form>
-    <a href="https://www.facebook.com/v3.0/dialog/oauth?client_id=2495657473793268&redirect_uri=http://localhost:8000/members/facebook-login/">facebook Login</a>
+    </article>
 {% endblock %}

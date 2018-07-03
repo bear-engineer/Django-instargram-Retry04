@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-
+    <article class="form-wrap">
     <form action="" method="POST" enctype="multipart/form-data">
         {% for field in form %}
             {% csrf_token %}
@@ -10,8 +10,11 @@
                 <p>{{ field.errors }}</p>
             </div>
         {% endfor %}
+    <div class="button-wrap">
         <button type="submit">회원가입</button>
+    </div>
     </form>
+    </article>
 
 
 {% endblock %}

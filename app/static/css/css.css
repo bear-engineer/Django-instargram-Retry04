@@ -22,6 +22,7 @@ article,
 aside,
 div,
 footer,
+form,
 header,
 header,
 img,
@@ -258,4 +259,49 @@ header nav .menu li {
 
 .container .my-author .author-username p {
   font-size: 14px;
+}
+
+/*forms=================*/
+.form-wrap {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.0975);
+  border-radius: 2px;
+  padding: 16px;
+}
+
+.form-wrap .button-wrap,
+.form-wrap input,
+.form-wrap label,
+.form-wrap select {
+  display: block;
+  margin: 8px auto;
+  width: 600px;
+  font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+}
+
+.form-wrap label {
+  font-size: 16px;
+  font-weight: 700;
+  color: #333;
+}
+
+.form-wrap input {
+  border: 1px solid rgba(0, 0, 0, 0.0975);
+  border-radius: 2px;
+  padding: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s;
+}
+
+.form-wrap .button-wrap button {
+  padding: 4px 16px;
+  background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
 }
