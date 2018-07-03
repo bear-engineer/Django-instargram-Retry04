@@ -4,32 +4,18 @@ from django.core.exceptions import ValidationError
 
 User = get_user_model()
 
-class SignupForm(forms.Form):
-    username = forms.CharField(max_length=50, label='ID')
-    last_name = forms.CharField(max_length=50, label='Your name')
-    password = forms.CharField(
-        label='비밀번호',
+class SignupModelForm(forms.ModelForm):
+    password2=forms.CharField(
         widget=forms.PasswordInput()
     )
-    password2 = forms.CharField(
-        label='비밀번호 확인',
-        widget=forms.PasswordInput()
-    )
-    profile_image = forms.ImageField(
-        label='프로필 이미지',
-        required=False,
-    )
-    gender = forms.ChoiceField(
-        label='성별',
-        widget=forms.Select(),
-        required=True,
-        choices=User.CHOICE_GENDER,
-    )
-    site = forms.URLField(
-        label='나의 홈페이지',
-        widget=forms.URLInput(),
-        required=False,
-    )
+
+    class Meta:
+        model = User
+        fields =['username', 'last_name', 'password','password2', 'profile_image', 'gender', 'site']
+        widgets = {
+            'password': forms.PasswordInput(),
+        }
+
 
     def clean_username(self):
         username = self.cleaned_data['username']

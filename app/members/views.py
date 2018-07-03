@@ -4,7 +4,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from config import settings
-from .forms import SignupForm
+from .forms import SignupModelForm
+
 User = get_user_model()
 
 def sign_in(request):
@@ -25,11 +26,12 @@ def sign_in(request):
     return render(request, 'sign/sign_in.html')
 
 def sign_up(request):
-    form = SignupForm()
+    form = SignupModelForm()
     if request.method == 'POST':
-        form = SignupForm(request.POST, request.FILES)
+        form = SignupModelForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.created_user()
+            user.save()
             login(request, user)
             return redirect('index')
     context = {
@@ -58,13 +60,14 @@ def sign_in_facebook(request):
     response_dict = response.json()
     access_token = response_dict['access_token']
 
-    # 액세스 토큰 검사
-    debug_url = 'https://graph.facebook.com/debug_token'
-    debug_params = {
-        'input_token':access_token,
-        'access_token':f'{settings.FACEBOOK_APP_ID}|{settings.FACEBOOK_APP_SECRET_CODE}',
-    }
-    debug_response = requests.get(debug_url, debug_params)
+    def token_inspection():
+        # 액세스 토큰 검사
+        debug_url = 'https://graph.facebook.com/debug_token'
+        debug_params = {
+            'input_token':access_token,
+            'access_token':f'{settings.FACEBOOK_APP_ID}|{settings.FACEBOOK_APP_SECRET_CODE}',
+        }
+        requests.get(debug_url, debug_params)
 
     # GraphAPI를 'me'(User)를 이용해서 Facebook User정보 받아오기
     url = 'https://graph.facebook.com/v3.0/me'
@@ -78,6 +81,7 @@ def sign_in_facebook(request):
         ]),
         'access_token': access_token
     }
+
     response = requests.get(url, params)
     response_dict = response.json()
 
@@ -92,15 +96,9 @@ def sign_in_facebook(request):
         defaults={
             'first_name':first_name,
             'last_name':last_name,
-            'profile_image':url_img_profile,
+            'profile_image':request.FILES[url_img_profile],
         }
     )
 
     login(request, user)
     return redirect('index')
-
-
-
-def follow_toggle(request):
-    if request.method == 'POST':
-        request.user.username.follow()
